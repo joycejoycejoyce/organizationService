@@ -22,4 +22,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         return SourceDestinationMapper.INSTANCE.destinationToSource(organization);
     }
+
+    @Override
+    public OrganizationDto findOrganizationByCode(String code) {
+        Organization organization = repository.findByOrganizationCode(code);
+        OrganizationDto dto = mapper.destinationToSource(organization);
+        return dto;
+    }
 }

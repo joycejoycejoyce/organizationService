@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.aot.AotServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/organizations")
@@ -25,6 +22,13 @@ public class OrganizationController {
     public ResponseEntity<OrganizationDto> saveOrganization(@RequestBody OrganizationDto dto) {
         OrganizationDto saved = organizationService.saveOrganization(dto);
         ResponseEntity<OrganizationDto> response = new ResponseEntity<>(saved, HttpStatus.CREATED);
+        return response;
+    }
+
+    @GetMapping("{code}")
+    public ResponseEntity<OrganizationDto> findOrganizationByCode(@PathVariable String code) {
+        OrganizationDto dto = organizationService.findOrganizationByCode(code);
+        ResponseEntity<OrganizationDto> response = new ResponseEntity<>(dto, HttpStatus.OK);
         return response;
     }
 }
