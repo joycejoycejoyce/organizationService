@@ -6,11 +6,14 @@ import com.joyce.organizationservice.mappper.SourceDestinationMapper;
 import com.joyce.organizationservice.repository.OrganizationRepository;
 import com.joyce.organizationservice.service.OrganizationService;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+    private static final Logger log = LoggerFactory.getLogger(OrganizationServiceImpl.class);
     @Autowired
     private OrganizationRepository repository;
 
@@ -25,6 +28,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationDto findOrganizationByCode(String code) {
+        log.info("find organization API in service layer");
         Organization organization = repository.findByOrganizationCode(code);
         OrganizationDto dto = mapper.destinationToSource(organization);
         return dto;
